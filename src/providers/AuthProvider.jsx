@@ -11,10 +11,10 @@ import { createContext, useEffect, useState } from "react";
 import app from "../firebase/firebase.config";
 
 export const AuthContext = createContext(null);
+const auth = getAuth(app);
 
 // eslint-disable-next-line react/prop-types
 const AuthProvider = ({ children }) => {
-  const auth = getAuth(app);
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const googleProvider = new GoogleAuthProvider();
@@ -24,14 +24,15 @@ const AuthProvider = ({ children }) => {
     return signInWithPopup(auth, googleProvider);
   };
 
+  const signIn = (email, password) => {
+    console.log(email, password);
+    setLoading(true);
+    return signInWithEmailAndPassword(auth, email, password);
+  };
+
   const createUser = (email, password) => {
     setLoading(true);
     return createUserWithEmailAndPassword(auth, email, password);
-  };
-
-  const userSignIn = (email, password) => {
-    setLoading(true);
-    return signInWithEmailAndPassword(auth, email, password);
   };
 
   const logOut = () => {
@@ -41,8 +42,9 @@ const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      setUser(currentUser);
       setLoading(false);
+      setUser(currentUser);
+      console.log(currentUser);
     });
     return () => unsubscribe();
   }, []);
@@ -51,7 +53,7 @@ const AuthProvider = ({ children }) => {
     loading,
     user,
     createUser,
-    userSignIn,
+    signIn,
     googleSignIn,
     logOut,
   };

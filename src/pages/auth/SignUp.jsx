@@ -9,9 +9,12 @@ import {
   Typography,
 } from "@mui/material";
 import GoogleIcon from "@mui/icons-material/Google";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { useRef } from "react";
+import { useContext, useRef } from "react";
+import { AuthContext } from "../../providers/AuthProvider";
+import axios from "axios";
+import { toast } from "react-toastify";
 
 const SignUp = () => {
   const {
@@ -21,9 +24,37 @@ const SignUp = () => {
     watch,
     formState: { errors },
   } = useForm();
+  const { googleSignIn, createUser } = useContext(AuthContext);
+
+  const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/dashboard";
   const onSubmit = (data) => {
     reset();
-    console.log(data);
+    createUser(data.email, data.password)
+      .then(() => {
+        axios
+          .post(`${import.meta.env.VITE_SERVER_URL}/user`, {
+            email: data.email,
+            role: "student",
+          })
+          .then(() => {
+            toast.success('Registration Successful')
+            navigate("/dashboard");
+          })
+          .catch((error) => toast.error(error.message));
+      })
+      .catch((error) => toast.error(error.message));
+  };
+
+  const handleGoogleSignIn = () => {
+    googleSignIn()
+      .then(() => {
+        navigate(from, { replace: true });
+      })
+      .catch((error) => {
+        toast.error(error.message);
+      });
   };
 
   const password = useRef({});
@@ -157,6 +188,7 @@ const SignUp = () => {
                   alignItems: "center",
                 }}
                 color="primary"
+                onClick={handleGoogleSignIn}
               >
                 <GoogleIcon fontSize="small" />{" "}
                 <span style={{ fontSize: "1rem" }}>Google</span>

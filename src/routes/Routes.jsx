@@ -4,6 +4,7 @@ import Home from "../pages/Home";
 import Page404 from "../componants/Page404";
 import SignUp from "../pages/auth/SignUp";
 import Login from "../pages/auth/Login";
+import DashboardLayout from "../pages/dashboard/DashboardLayout";
 
 const router = createBrowserRouter([
   {
@@ -23,6 +24,10 @@ const router = createBrowserRouter([
         element: <SignUp />,
       },
     ],
+  },
+  {
+    path: "/dashboard",
+    element: <DashboardLayout />,
   },
   {
     path: "*",

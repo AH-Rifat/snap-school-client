@@ -16,18 +16,24 @@ import { AuthContext } from "../../providers/AuthProvider";
 import { toast } from "react-toastify";
 
 const Login = () => {
+  const { googleSignIn, signIn } = useContext(AuthContext);
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm();
-  const { googleSignIn } = useContext(AuthContext)
-  const navigate = useNavigate()
-  const location = useLocation()
-  const from = location.state?.from?.pathname || '/'
+  const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/dashboard";
 
   const onSubmit = (data) => {
-    console.log(data);
+    reset();
+    signIn(data.email, data.password)
+      .then(() => {
+        navigate(from, { replace: true });
+      })
+      .catch((error) => toast.error(error.message));
   };
 
   const handleGoogleSignIn = () => {
