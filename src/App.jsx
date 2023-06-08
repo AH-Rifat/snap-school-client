@@ -1,18 +1,20 @@
-import { Outlet } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 import "./App.css";
 import Header from "./shared/Header";
-import { CssBaseline, StyledEngineProvider } from "@mui/material";
+import { CssBaseline } from "@mui/material";
 import Footer from "./shared/Footer";
 
 function App() {
+  const location = useLocation();
+  const noHeaderFooter =
+    location.pathname.includes("login") || location.pathname.includes("signUp");
+
   return (
     <>
       <CssBaseline />
-      <StyledEngineProvider injectFirst>
-        <Header />
-        <Outlet />
-        <Footer />
-      </StyledEngineProvider>
+      {noHeaderFooter || <Header />}
+      <Outlet />
+      {noHeaderFooter || <Footer />}
     </>
   );
 }

@@ -10,6 +10,7 @@ import Container from "@mui/material/Container";
 import Button from "@mui/material/Button";
 import MenuItem from "@mui/material/MenuItem";
 import CastForEducationIcon from "@mui/icons-material/CastForEducation";
+import { Link } from "react-router-dom";
 
 const pages = ["Home", "Instructors", "Classes"];
 
@@ -121,10 +122,11 @@ const Header = () => {
               </Button>
             ))}
           </Box>
-
-          <Button variant="contained" color="info">
-            Login
-          </Button>
+          <Link to={"/login"}>
+            <Button variant="contained" color="info">
+              Login
+            </Button>
+          </Link>
         </Toolbar>
       </Container>
     </AppBar>
