@@ -9,8 +9,11 @@ import {
   Typography,
 } from "@mui/material";
 import GoogleIcon from "@mui/icons-material/Google";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import { useContext } from "react";
+import { AuthContext } from "../../providers/AuthProvider";
+import { toast } from "react-toastify";
 
 const Login = () => {
   const {
@@ -18,7 +21,24 @@ const Login = () => {
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const onSubmit = (data) => console.log(data);
+  const { googleSignIn } = useContext(AuthContext)
+  const navigate = useNavigate()
+  const location = useLocation()
+  const from = location.state?.from?.pathname || '/'
+
+  const onSubmit = (data) => {
+    console.log(data);
+  };
+
+  const handleGoogleSignIn = () => {
+    googleSignIn()
+      .then(() => {
+        navigate(from, { replace: true });
+      })
+      .catch((error) => {
+        toast.error(error.message);
+      });
+  };
 
   return (
     <Container
@@ -93,6 +113,7 @@ const Login = () => {
                   alignItems: "center",
                 }}
                 color="primary"
+                onClick={handleGoogleSignIn}
               >
                 <GoogleIcon fontSize="small" />{" "}
                 <span style={{ fontSize: "1rem" }}>Google</span>

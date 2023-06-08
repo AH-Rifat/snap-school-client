@@ -11,11 +11,13 @@ import Button from "@mui/material/Button";
 import MenuItem from "@mui/material/MenuItem";
 import CastForEducationIcon from "@mui/icons-material/CastForEducation";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../providers/AuthProvider";
 
 const pages = ["Home", "Instructors", "Classes"];
 
 const Header = () => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
+  const { user } = React.useContext(AuthContext);
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -122,11 +124,19 @@ const Header = () => {
               </Button>
             ))}
           </Box>
-          <Link to={"/login"}>
-            <Button variant="contained" color="info">
-              Login
-            </Button>
-          </Link>
+          {user ? (
+            <Link to={"/dashboard"}>
+              <Button variant="contained" color="info">
+                Dashboard
+              </Button>
+            </Link>
+          ) : (
+            <Link to={"/login"}>
+              <Button variant="contained" color="info">
+                Login
+              </Button>
+            </Link>
+          )}
         </Toolbar>
       </Container>
     </AppBar>
