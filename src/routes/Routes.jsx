@@ -6,6 +6,8 @@ import SignUp from "../pages/auth/SignUp";
 import Login from "../pages/auth/Login";
 import DashboardLayout from "../pages/dashboard/DashboardLayout";
 import ManageUsers from "../pages/dashboard/admin/ManageUsers";
+import AdminRoute from "./AdminRoute";
+import PrivateRoute from "./PrivateRoute";
 
 const router = createBrowserRouter([
   {
@@ -27,12 +29,20 @@ const router = createBrowserRouter([
     ],
   },
   {
-    path: "/dashboard",
-    element: <DashboardLayout />,
+    path: "dashboard",
+    element: (
+      <PrivateRoute>
+        <DashboardLayout />
+      </PrivateRoute>
+    ),
     children: [
       {
-        path: "/dashboard",
-        element: <ManageUsers />,
+        path: "manageUsers",
+        element: (
+          <AdminRoute>
+            <ManageUsers />
+          </AdminRoute>
+        ),
       },
     ],
   },

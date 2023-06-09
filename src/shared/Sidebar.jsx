@@ -1,10 +1,12 @@
 import { Avatar, Box, Button, Divider } from "@mui/material";
 import { useContext } from "react";
 import { AuthContext } from "../providers/AuthProvider";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import useAdmin from "../hooks/useAdmin";
 
 const Sidebar = () => {
   const { logOut } = useContext(AuthContext);
+  const [isAdmin] = useAdmin();
   const navigate = useNavigate();
 
   const handleLogout = () => {
@@ -43,21 +45,33 @@ const Sidebar = () => {
           </Button>
         </Box>
         <Divider sx={{ color: "whitesmoke", margin: "1rem 0" }}>Menu</Divider>
-        <Box
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            gap: "0.8rem",
-          }}
-        >
-          <Button variant="contained" sx={{ width: "100%" }} color="primary">
-            Manage Classes
-          </Button>
-          <Button variant="contained" sx={{ width: "100%" }} color="primary">
-            Manage Users
-          </Button>
-        </Box>
+        {isAdmin?.admin == true && (
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              gap: "0.8rem",
+            }}
+          >
+            <Button variant="contained" sx={{ width: "100%" }} color="primary">
+              <Link
+                to={"/manageClasses"}
+                style={{ textDecoration: "none", color: "white" }}
+              >
+                Manage Classes
+              </Link>
+            </Button>
+            <Button variant="contained" sx={{ width: "100%" }} color="primary">
+              <Link
+                to={"manageUsers"}
+                style={{ textDecoration: "none", color: "white" }}
+              >
+                Manage Users
+              </Link>
+            </Button>
+          </Box>
+        )}
       </Box>
     </div>
   );
