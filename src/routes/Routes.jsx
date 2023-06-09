@@ -5,6 +5,7 @@ import Page404 from "../componants/Page404";
 import SignUp from "../pages/auth/SignUp";
 import Login from "../pages/auth/Login";
 import DashboardLayout from "../pages/dashboard/DashboardLayout";
+import ManageUsers from "../pages/dashboard/admin/ManageUsers";
 
 const router = createBrowserRouter([
   {
@@ -28,6 +29,12 @@ const router = createBrowserRouter([
   {
     path: "/dashboard",
     element: <DashboardLayout />,
+    children: [
+      {
+        path: "/dashboard",
+        element: <ManageUsers />,
+      },
+    ],
   },
   {
     path: "*",
