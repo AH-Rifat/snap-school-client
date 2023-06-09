@@ -11,7 +11,7 @@ import {
 import GoogleIcon from "@mui/icons-material/Google";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { AuthContext } from "../../providers/AuthProvider";
 import { toast } from "react-toastify";
 
@@ -23,10 +23,11 @@ const Login = () => {
     reset,
     formState: { errors },
   } = useForm();
+  const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
   const from = location.state?.from?.pathname || "/dashboard";
-
+  console.log(showPassword);
   const onSubmit = (data) => {
     reset();
     signIn(data.email, data.password)
@@ -92,10 +93,40 @@ const Login = () => {
               )}
               <TextField
                 label="Password"
-                type="password"
+                type={showPassword == true ? "text" : "password"}
                 size="small"
+                sx={{ position: "relative" }}
                 {...register("password", { required: true })}
               />
+              {/* conditional button for show/hide passord */}
+              {showPassword == true ? (
+                <Button
+                  variant="outlined"
+                  size="small"
+                  sx={{
+                    position: "absolute",
+                    marginTop: "3.8rem",
+                    marginLeft: { xs: "15.5rem", md: "20.5rem" },
+                  }}
+                  onClick={() => setShowPassword(!true)}
+                >
+                  Hide
+                </Button>
+              ) : (
+                <Button
+                  variant="outlined"
+                  size="small"
+                  sx={{
+                    position: "absolute",
+                    marginTop: "3.8rem",
+                    marginLeft: { xs: "15.5rem", md: "20.5rem" },
+                  }}
+                  onClick={() => setShowPassword(!false)}
+                >
+                  Show
+                </Button>
+              )}
+
               {errors.password && (
                 <Typography variant="p" color={"red"}>
                   This Password field is required
