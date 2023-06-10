@@ -2,6 +2,7 @@
 import { Navigate, useLocation } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
 import useInstructor from "../hooks/useInstructor";
+import { HashLoader } from "react-spinners";
 
 const InstructorRoute = ({ children }) => {
   const { user, loading } = useAuth();
@@ -9,7 +10,16 @@ const InstructorRoute = ({ children }) => {
   const location = useLocation();
 
   if (loading || isInstructorLoading) {
-    return <h1>Loading...</h1>;
+    return (
+      <HashLoader
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+        color="#007aff"
+      />
+    );
   }
 
   if (user && isInstructor?.instructor == true) {

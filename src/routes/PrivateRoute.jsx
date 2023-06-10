@@ -16,7 +16,7 @@ const PrivateRoute = ({ children }) => {
           justifyContent: "center",
           alignItems: "center",
         }}
-        color="#36d7b7"
+        color="#007aff"
       />
     );
   }
