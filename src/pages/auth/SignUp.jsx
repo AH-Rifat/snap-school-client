@@ -24,7 +24,7 @@ const SignUp = () => {
     watch,
     formState: { errors },
   } = useForm();
-  const { googleSignIn, createUser } = useContext(AuthContext);
+  const { googleSignIn, createUser, updateUserProfile } = useContext(AuthContext);
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -39,6 +39,7 @@ const SignUp = () => {
             role: "student",
           })
           .then(() => {
+            updateUserProfile(data.name, data.photoUrl)
             toast.success('Registration Successful')
             navigate("/dashboard");
           })

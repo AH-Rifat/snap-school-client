@@ -7,8 +7,10 @@ import {
   TextField,
 } from "@mui/material";
 import { useForm } from "react-hook-form";
+import useAuth from "../../../hooks/useAuth";
 
 const AddClass = () => {
+  const { user } = useAuth();
   const {
     register,
     handleSubmit,
@@ -29,12 +31,12 @@ const AddClass = () => {
               <input
                 type="hidden"
                 {...register("instructorName", { required: true })}
-                defaultValue={"asis"}
+                defaultValue={user?.displayName}
               />
               <input
                 type="hidden"
                 {...register("instructorEmail", { required: true })}
-                defaultValue={"asis@gmail.com"}
+                defaultValue={user?.email}
               />
               <input
                 type="hidden"

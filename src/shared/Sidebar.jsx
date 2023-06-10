@@ -1,13 +1,15 @@
-import { Avatar, Box, Button, Divider } from "@mui/material";
+import { Avatar, Box, Button, Divider, Typography } from "@mui/material";
 import { useContext } from "react";
 import { AuthContext } from "../providers/AuthProvider";
 import { Link, useNavigate } from "react-router-dom";
 import useAdmin from "../hooks/useAdmin";
 import useInstructor from "../hooks/useInstructor";
+import useAuth from "../hooks/useAuth";
 
 const Sidebar = () => {
   const { logOut } = useContext(AuthContext);
   const [isAdmin] = useAdmin();
+  const { user } = useAuth();
   const [isInstructor] = useInstructor();
   const navigate = useNavigate();
 
@@ -39,10 +41,16 @@ const Sidebar = () => {
         >
           <Avatar
             alt="Remy Sharp"
-            src="/static/images/avatar/1.jpg"
+            src={user?.photoURL}
             sx={{ width: 80, height: 80 }}
           />
-          <Button variant="contained" color="warning" onClick={handleLogout}>
+          <Typography sx={{ color: "white" }}>{user?.displayName}</Typography>
+          <Button
+            variant="contained"
+            size="small"
+            color="warning"
+            onClick={handleLogout}
+          >
             Logout
           </Button>
         </Box>
@@ -104,6 +112,35 @@ const Sidebar = () => {
             </Button>
           </Box>
         )}
+
+        {/* for Student */}
+        {/* {isStudent?.student == true && (
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              gap: "0.8rem",
+            }}
+          >
+            <Button variant="contained" sx={{ width: "100%" }} color="primary">
+              <Link
+                to={"myClasses"}
+                style={{ textDecoration: "none", color: "white" }}
+              >
+                My Selected Classes
+              </Link>
+            </Button>
+            <Button variant="contained" sx={{ width: "100%" }} color="primary">
+              <Link
+                to={"enrollClasses"}
+                style={{ textDecoration: "none", color: "white" }}
+              >
+                My Enrolled Classes
+              </Link>
+            </Button>
+          </Box>
+        )} */}
       </Box>
     </div>
   );
