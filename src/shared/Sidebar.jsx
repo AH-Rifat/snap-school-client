@@ -104,7 +104,7 @@ const Sidebar = () => {
             </Button>
             <Button variant="contained" sx={{ width: "100%" }} color="primary">
               <Link
-                to={"manageUsers"}
+                to={"myclasses"}
                 style={{ textDecoration: "none", color: "white" }}
               >
                 My Classes

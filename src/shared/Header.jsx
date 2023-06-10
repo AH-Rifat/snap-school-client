@@ -12,13 +12,15 @@ import MenuItem from "@mui/material/MenuItem";
 import CastForEducationIcon from "@mui/icons-material/CastForEducation";
 import { Link } from "react-router-dom";
 import useAdmin from "../hooks/useAdmin";
+import useInstructor from "../hooks/useInstructor";
 
 const pages = ["Home", "Instructors", "Classes"];
 
 const Header = () => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [isAdmin] = useAdmin();
-
+  const [isInstructor] = useInstructor();
+console.log(isInstructor);
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
   };
@@ -124,7 +126,7 @@ const Header = () => {
               </Button>
             ))}
           </Box>
-          {isAdmin?.admin == true ? (
+          {isAdmin?.admin == true || isInstructor?.instructor == true ? (
             <Link to={"/dashboard"}>
               <Button variant="contained" color="info">
                 Dashboard
