@@ -23,7 +23,7 @@ const AddClass = () => {
     console.log(data);
     const formData = new FormData();
     formData.append("image", data.classImage[0]);
-console.log();
+
     fetch(
       `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_IMGBB_APIKEY}`,
       {
