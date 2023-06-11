@@ -1,9 +1,9 @@
 import { Container, Grid } from "@mui/material";
-import ClasessCard from "../componants/ClasessCard";
 import HomeSlider from "../componants/HomeSlider";
 import SectionTitle from "../componants/SectionTitle";
 import HomeSlider2 from "../componants/HomeSlider2";
 import SimpleAccordion from "../componants/Accordion";
+import ClassesCard from "../componants/ClassesCard";
 
 const Home = () => {
   return (
@@ -14,22 +14,22 @@ const Home = () => {
       <Container>
         <Grid container spacing={4} style={{ margin: "auto -1rem" }}>
           <Grid item xs={12} md={4}>
-            <ClasessCard />
+            <ClassesCard />
           </Grid>
           <Grid item xs={12} md={4}>
-            <ClasessCard />
+            <ClassesCard />
           </Grid>
           <Grid item xs={12} md={4}>
-            <ClasessCard />
+            <ClassesCard />
           </Grid>
           <Grid item xs={12} md={4}>
-            <ClasessCard />
+            <ClassesCard />
           </Grid>
           <Grid item xs={12} md={4}>
-            <ClasessCard />
+            <ClassesCard />
           </Grid>
           <Grid item xs={12} md={4}>
-            <ClasessCard />
+            <ClassesCard />
           </Grid>
         </Grid>
       </Container>
