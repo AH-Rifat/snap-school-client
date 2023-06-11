@@ -8,16 +8,60 @@ import {
 } from "@mui/material";
 import { useForm } from "react-hook-form";
 import useAuth from "../../../hooks/useAuth";
+import axios from "axios";
+import { toast } from "react-toastify";
 
 const AddClass = () => {
   const { user } = useAuth();
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm();
   const onSubmit = (data) => {
     console.log(data);
+    const formData = new FormData();
+    formData.append("image", data.classImage[0]);
+console.log();
+    fetch(
+      `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_IMGBB_APIKEY}`,
+      {
+        method: "POST",
+        body: formData,
+      }
+    )
+      .then((res) => res.json())
+      .then((res) => {
+        const imgUrl = res.data.display_url;
+        const {
+          instructorName,
+          instructorEmail,
+          status,
+          className,
+          availableSeats,
+          price,
+        } = data;
+        const classInfo = {
+          instructorName,
+          instructorEmail,
+          status,
+          className,
+          availableSeats,
+          price,
+          classImage: imgUrl,
+          totalEnrolled: 0,
+          feedback: "",
+        };
+        reset();
+        axios
+          .post(`${import.meta.env.VITE_SERVER_URL}/addClass`, classInfo)
+          .then(() => {
+            toast.success("Class Created Successfuly");
+          })
+          .catch((error) => toast.error(error.message));
+      })
+      .catch((error) => toast.error(error.message));
   };
 
   return (
