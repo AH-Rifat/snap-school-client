@@ -5,7 +5,11 @@ import axios from "axios";
 const useInstructor = () => {
   const { user, loading } = useAuth();
 
-  const { data: isInstructor, isLoading: isInstructorLoading } = useQuery({
+  const {
+    data: isInstructor,
+    isLoading: isInstructorLoading,
+    refetch,
+  } = useQuery({
     queryKey: ["isInstructor", user?.email],
     enabled: !loading,
     queryFn: async () => {
@@ -15,7 +19,7 @@ const useInstructor = () => {
       return res.data;
     },
   });
-  return [isInstructor, isInstructorLoading];
+  return [isInstructor, isInstructorLoading, refetch];
 };
 
 export default useInstructor;

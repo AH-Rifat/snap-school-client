@@ -6,7 +6,7 @@ import { HashLoader } from "react-spinners";
 
 const InstructorRoute = ({ children }) => {
   const { user, loading } = useAuth();
-  const [isInstructor, isInstructorLoading] = useInstructor();
+  const [isInstructor, isInstructorLoading, refetch] = useInstructor();
   const location = useLocation();
 
   if (loading || isInstructorLoading) {
@@ -23,6 +23,7 @@ const InstructorRoute = ({ children }) => {
   }
 
   if (user && isInstructor?.instructor == true) {
+    refetch();
     return children;
   }
 
