@@ -48,7 +48,6 @@ const ManageClasses = () => {
   const onSubmit = (data) => {
     reset();
     handleClose();
-    console.log(data);
     axios
       .post(`${import.meta.env.VITE_SERVER_URL}/admin/feedback`, data)
       .then(() => {

@@ -6,23 +6,30 @@ import {
   Typography,
 } from "@mui/material";
 
-const InstructorsCard = () => {
+const InstructorsCard = (info) => {
+  const { name, email, photoUrl } = info.info;
+
   return (
     <>
-      <Card sx={{ maxWidth: 300, textAlign: "center", marginBottom: "6rem" }}>
+      <Card
+        sx={{
+          maxWidth: 300,
+          textAlign: "center",
+          marginBottom: "6rem",
+          borderRadius: "1rem",
+        }}
+      >
         <CardActionArea>
           <Avatar
             alt="Remy Sharp"
-            src="/static/images/avatar/1.jpg"
-            sx={{ width: 130, height: 130, margin: "1rem auto" }}
+            src={photoUrl}
+            sx={{ width: 150, height: 150, marginTop: "2rem", marginX: "auto" }}
           />
           <CardContent>
             <Typography gutterBottom variant="h5" component="div">
-              Lizard
+              {name}
             </Typography>
-            <Typography variant="body2" color="text.secondary">
-              Lecturer
-            </Typography>
+            <Typography variant="body2">{email}</Typography>
           </CardContent>
         </CardActionArea>
       </Card>

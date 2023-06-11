@@ -35,7 +35,9 @@ const SignUp = () => {
       .then(() => {
         axios
           .post(`${import.meta.env.VITE_SERVER_URL}/user`, {
+            name: data.name,
             email: data.email,
+            photoUrl: data.photoUrl,
             role: "student",
           })
           .then(() => {

@@ -14,13 +14,17 @@ import { Link } from "react-router-dom";
 import useAdmin from "../hooks/useAdmin";
 import useInstructor from "../hooks/useInstructor";
 
-const pages = ["Home", "Instructors", "Classes"];
+const pages = [
+  {label: 'Home', path:'/'},
+  {label: 'Instructors', path:'/instructors'},
+  {label: 'Classes', path:''},
+];
 
 const Header = () => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [isAdmin] = useAdmin();
   const [isInstructor] = useInstructor();
-console.log(isInstructor);
+
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
   };
@@ -84,8 +88,8 @@ console.log(isInstructor);
               }}
             >
               {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
+                <MenuItem key={page.label} onClick={handleCloseNavMenu} component={Link} to={page.path}>
+                  <Typography textAlign="center">{page.label}</Typography>
                 </MenuItem>
               ))}
             </Menu>
@@ -118,11 +122,13 @@ console.log(isInstructor);
           >
             {pages.map((page) => (
               <Button
-                key={page}
+                key={page.label}
+                component={Link} // Use Link component for navigation
+                to={page.path}
                 onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: "white", display: "block" }}
-              >
-                {page}
+                >
+                {page.label}
               </Button>
             ))}
           </Box>
