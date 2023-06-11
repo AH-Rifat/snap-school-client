@@ -5,13 +5,37 @@ import {
   Card,
   CardContent,
   Container,
+  Modal,
+  TextField,
+  Typography,
 } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import axios from "axios";
 import { useEffect, useState } from "react";
+// import FeedbackModal from "../../../componants/FeedbackModal";
+// feedback modal style
+const style = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: 400,
+  bgcolor: "background.paper",
+  border: "2px solid grey",
+  borderRadius: "1rem",
+  boxShadow: 24,
+  p: 4,
+};
 
 const ManageClasses = () => {
   const [allData, setAllData] = useState([]);
+  const [open, setOpen] = useState(false);
+  const handleOpen = (id) => {
+    setOpen(true);
+    setSelectedId(id)
+  };
+  const handleClose = () => setOpen(false);
+  const [selectedId, setSelectedId] = useState(null)
 
   const columns = [
     {
@@ -60,6 +84,14 @@ const ManageClasses = () => {
           >
             Deny
           </Button>
+          <Button
+            size="small"
+            variant="contained"
+            color="info"
+            onClick={() => handleOpen(params.row._id)}
+          >
+            Feedback
+          </Button>
         </div>
       ),
     },
@@ -102,6 +134,27 @@ const ManageClasses = () => {
 
   return (
     <Container>
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={style}>
+          <Typography id="modal-modal-title" color={'gray'} variant="h6" component="h2" sx={{marginBottom:'1.5rem', fontWeight:700}}>
+            Send Feedback
+          </Typography>
+          <Box action="">
+
+          <TextField  fullWidth label="Type Here" rows={4} multiline />
+
+          <div style={{display:'flex',justifyContent:'end', gap:'1rem', marginTop:'1.5rem'}}>
+          <Button variant="outlined" color="success">Send</Button>
+          <Button variant="outlined" color="error" onClick={handleClose}>close</Button>
+          </div>
+          </Box>
+        </Box>
+      </Modal>
       <Box
         sx={{ display: "flex", justifyContent: "center", margin: "1rem auto" }}
       >
