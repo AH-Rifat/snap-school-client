@@ -12,6 +12,8 @@ import {
 import { DataGrid } from "@mui/x-data-grid";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
+import { toast } from "react-toastify";
 // import FeedbackModal from "../../../componants/FeedbackModal";
 // feedback modal style
 const style = {
@@ -32,10 +34,28 @@ const ManageClasses = () => {
   const [open, setOpen] = useState(false);
   const handleOpen = (id) => {
     setOpen(true);
-    setSelectedId(id)
+    setSelectedId(id);
   };
   const handleClose = () => setOpen(false);
-  const [selectedId, setSelectedId] = useState(null)
+  const [selectedId, setSelectedId] = useState(null);
+  const {
+    register,
+    handleSubmit,
+    reset,
+    // formState: { errors },
+  } = useForm();
+
+  const onSubmit = (data) => {
+    reset();
+    handleClose();
+    console.log(data);
+    axios
+      .post(`${import.meta.env.VITE_SERVER_URL}/admin/feedback`, data)
+      .then(() => {
+        toast.success("Feedback Sent Successfuly");
+      })
+      .catch((error) => toast.error(error.message));
+  };
 
   const columns = [
     {
@@ -141,17 +161,43 @@ const ManageClasses = () => {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          <Typography id="modal-modal-title" color={'gray'} variant="h6" component="h2" sx={{marginBottom:'1.5rem', fontWeight:700}}>
+          <Typography
+            id="modal-modal-title"
+            color={"gray"}
+            variant="h6"
+            component="h2"
+            sx={{ marginBottom: "1.5rem", fontWeight: 700 }}
+          >
             Send Feedback
           </Typography>
-          <Box action="">
-
-          <TextField  fullWidth label="Type Here" rows={4} multiline />
-
-          <div style={{display:'flex',justifyContent:'end', gap:'1rem', marginTop:'1.5rem'}}>
-          <Button variant="outlined" color="success">Send</Button>
-          <Button variant="outlined" color="error" onClick={handleClose}>close</Button>
-          </div>
+          <Box component="form" onSubmit={handleSubmit(onSubmit)}>
+            <TextField
+              {...register("feedback")}
+              fullWidth
+              label="Type Here"
+              rows={4}
+              multiline
+            />
+            <input
+              type="hidden"
+              {...register("classId")}
+              defaultValue={selectedId}
+            />
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "end",
+                gap: "1rem",
+                marginTop: "1.5rem",
+              }}
+            >
+              <Button variant="outlined" color="success" type="submit">
+                Send
+              </Button>
+              <Button variant="outlined" color="error" onClick={handleClose}>
+                close
+              </Button>
+            </div>
           </Box>
         </Box>
       </Modal>
