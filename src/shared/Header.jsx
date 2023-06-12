@@ -13,17 +13,19 @@ import CastForEducationIcon from "@mui/icons-material/CastForEducation";
 import { Link } from "react-router-dom";
 import useAdmin from "../hooks/useAdmin";
 import useInstructor from "../hooks/useInstructor";
+import useStudent from "../hooks/useStudent";
 
 const pages = [
-  {label: 'Home', path:'/'},
-  {label: 'Instructors', path:'/instructors'},
-  {label: 'Classes', path:''},
+  { label: "Home", path: "/" },
+  { label: "Instructors", path: "/instructors" },
+  { label: "Classes", path: "/classesPage" },
 ];
 
 const Header = () => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [isAdmin] = useAdmin();
   const [isInstructor] = useInstructor();
+  const [isStudent] = useStudent();
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -88,7 +90,12 @@ const Header = () => {
               }}
             >
               {pages.map((page) => (
-                <MenuItem key={page.label} onClick={handleCloseNavMenu} component={Link} to={page.path}>
+                <MenuItem
+                  key={page.label}
+                  onClick={handleCloseNavMenu}
+                  component={Link}
+                  to={page.path}
+                >
                   <Typography textAlign="center">{page.label}</Typography>
                 </MenuItem>
               ))}
@@ -127,12 +134,14 @@ const Header = () => {
                 to={page.path}
                 onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: "white", display: "block" }}
-                >
+              >
                 {page.label}
               </Button>
             ))}
           </Box>
-          {isAdmin?.admin == true || isInstructor?.instructor == true ? (
+          {isAdmin?.admin == true ||
+          isInstructor?.instructor == true ||
+          isStudent?.student == true ? (
             <Link to={"/dashboard"}>
               <Button variant="contained" color="info">
                 Dashboard
