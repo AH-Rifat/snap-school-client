@@ -5,12 +5,14 @@ import { Link, useNavigate } from "react-router-dom";
 import useAdmin from "../hooks/useAdmin";
 import useInstructor from "../hooks/useInstructor";
 import useAuth from "../hooks/useAuth";
+import useStudent from "../hooks/useStudent";
 
 const Sidebar = () => {
   const { logOut } = useContext(AuthContext);
   const [isAdmin] = useAdmin();
   const { user } = useAuth();
   const [isInstructor] = useInstructor();
+  const [isStudent] = useStudent();
   const navigate = useNavigate();
 
   const handleLogout = () => {
@@ -114,7 +116,7 @@ const Sidebar = () => {
         )}
 
         {/* for Student */}
-        {/* {isStudent?.student == true && (
+        {isStudent?.student == true && (
           <Box
             sx={{
               display: "flex",
@@ -125,7 +127,7 @@ const Sidebar = () => {
           >
             <Button variant="contained" sx={{ width: "100%" }} color="primary">
               <Link
-                to={"myClasses"}
+                to={"mySelectedClasses"}
                 style={{ textDecoration: "none", color: "white" }}
               >
                 My Selected Classes
@@ -139,8 +141,21 @@ const Sidebar = () => {
                 My Enrolled Classes
               </Link>
             </Button>
+            <Button variant="contained" sx={{ width: "100%" }} color="primary">
+              <Link
+                to={"paymentHistory"}
+                style={{ textDecoration: "none", color: "white" }}
+              >
+                Payment History
+              </Link>
+            </Button>
           </Box>
-        )} */}
+        )}
+        <Link to={"/"}>
+          <Button variant="outlined" color="warning" sx={{ mt: "1rem" }}>
+            Go To Website
+          </Button>
+        </Link>
       </Box>
     </div>
   );

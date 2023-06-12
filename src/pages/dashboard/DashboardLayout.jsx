@@ -13,34 +13,42 @@ const DashboardLayout = () => {
       <CssBaseline />
       <Box sx={{ display: "flex" }}>
         <Sidebar />
-        {isStudent?.student == true ? (
-          <h1
-            key={1}
-            style={{ marginLeft: "4rem", textDecorationLine: "underline" }}
-          >
-            Student Dashboard
-          </h1>
-        ) : (
-          [
-            isAdmin?.admin == true ? (
-              <h1
-                key={2}
-                style={{ marginLeft: "4rem", textDecorationLine: "underline" }}
-              >
-                Admin Dashboard
-              </h1>
-            ) : (
-              <h1
-                key={3}
-                style={{ marginLeft: "4rem", textDecorationLine: "underline" }}
-              >
-                Instructor Dashboard
-              </h1>
-            ),
-          ]
-        )}
+        <div style={{width:'100%', textAlign:'center'}}>
+          {isStudent?.student == true ? (
+            <h1
+              key={1}
+              style={{ marginLeft: "4rem", textDecorationLine: "underline" }}
+            >
+              Student Dashboard
+            </h1>
+          ) : (
+            [
+              isAdmin?.admin == true ? (
+                <h1
+                  key={2}
+                  style={{
+                    marginLeft: "4rem",
+                    textDecorationLine: "underline",
+                  }}
+                >
+                  Admin Dashboard
+                </h1>
+              ) : (
+                <h1
+                  key={3}
+                  style={{
+                    marginLeft: "4rem",
+                    textDecorationLine: "underline",
+                  }}
+                >
+                  Instructor Dashboard
+                </h1>
+              ),
+            ]
+          )}
 
-        <Outlet />
+          <Outlet />
+        </div>
       </Box>
     </>
   );

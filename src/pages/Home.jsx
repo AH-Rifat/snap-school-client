@@ -14,22 +14,7 @@ const Home = () => {
       <Container>
         <Grid container spacing={4} style={{ margin: "auto -1rem" }}>
           <Grid item xs={12} md={4}>
-            <ClassesCard />
-          </Grid>
-          <Grid item xs={12} md={4}>
-            <ClassesCard />
-          </Grid>
-          <Grid item xs={12} md={4}>
-            <ClassesCard />
-          </Grid>
-          <Grid item xs={12} md={4}>
-            <ClassesCard />
-          </Grid>
-          <Grid item xs={12} md={4}>
-            <ClassesCard />
-          </Grid>
-          <Grid item xs={12} md={4}>
-            <ClassesCard />
+            {/* <ClassesCard /> */}
           </Grid>
         </Grid>
       </Container>
