@@ -27,7 +27,7 @@ const HomeSlider2 = () => {
           clickable: true,
         }}
       >
-        {data?.map((allData) => {
+        {data?.slice(0,6).map((allData) => {
           return (
             <SwiperSlide key={allData._id}>
               <InstructorsCard info={allData} />
