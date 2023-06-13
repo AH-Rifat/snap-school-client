@@ -6,7 +6,7 @@ import { HashLoader } from "react-spinners";
 
 const AdminRoute = ({ children }) => {
   const { user, loading } = useAuth();
-  const [isAdmin, isAdminLoading, refetch] = useAdmin();
+  const [isAdmin, isAdminLoading] = useAdmin();
   const location = useLocation();
 
   if (loading || isAdminLoading) {
@@ -22,8 +22,7 @@ const AdminRoute = ({ children }) => {
     );
   }
 
-  if (user || isAdmin?.admin == true) {
-    refetch();
+  if (user && isAdmin?.admin == true) {
     return children;
   }
 

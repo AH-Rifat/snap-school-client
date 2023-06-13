@@ -5,7 +5,7 @@ import { useQuery } from "react-query";
 const useAdmin = () => {
   const { user, loading } = useAuth();
 
-  const { data: isAdmin, isLoading: isAdminLoading, refetch } = useQuery({
+  const { data: isAdmin, isLoading: isAdminLoading } = useQuery({
     queryKey: ["isAdmin", user?.email],
     enabled: !loading,
     queryFn: async () => {
@@ -15,7 +15,7 @@ const useAdmin = () => {
       return res.data;
     },
   });
-  return [isAdmin, isAdminLoading, refetch];
+  return [isAdmin, isAdminLoading];
 };
 
 export default useAdmin;

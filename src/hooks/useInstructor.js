@@ -8,7 +8,6 @@ const useInstructor = () => {
   const {
     data: isInstructor,
     isLoading: isInstructorLoading,
-    refetch,
   } = useQuery({
     queryKey: ["isInstructor", user?.email],
     enabled: !loading,
@@ -19,7 +18,7 @@ const useInstructor = () => {
       return res.data;
     },
   });
-  return [isInstructor, isInstructorLoading, refetch];
+  return [isInstructor, isInstructorLoading];
 };
 
 export default useInstructor;

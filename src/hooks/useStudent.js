@@ -6,7 +6,7 @@ import useAuth from "./useAuth";
 const useStudent = () => {
     const { user, loading } = useAuth();
 
-    const { data: isStudent, isLoading: isStudentLoading, refetch } = useQuery({
+    const { data: isStudent, isLoading: isStudentLoading } = useQuery({
         queryKey: ["isStudent", user?.email],
         enabled: !loading,
         queryFn: async () => {
@@ -16,7 +16,7 @@ const useStudent = () => {
             return res.data;
         },
     });
-    return [isStudent, isStudentLoading, refetch];
+    return [isStudent, isStudentLoading];
 };
 
 export default useStudent;
