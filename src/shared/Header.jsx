@@ -14,6 +14,8 @@ import { Link } from "react-router-dom";
 import useAdmin from "../hooks/useAdmin";
 import useInstructor from "../hooks/useInstructor";
 import useStudent from "../hooks/useStudent";
+import LightModeIcon from '@mui/icons-material/LightMode';
+import DarkModeIcon from '@mui/icons-material/DarkMode';
 
 const pages = [
   { label: "Home", path: "/" },
@@ -21,7 +23,7 @@ const pages = [
   { label: "Classes", path: "/classesPage" },
 ];
 
-const Header = () => {
+const Header = ({ toggleTheme, isDarkMode }) => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [isAdmin] = useAdmin();
   const [isInstructor] = useInstructor();
@@ -139,9 +141,12 @@ const Header = () => {
               </Button>
             ))}
           </Box>
+          <div style={{marginRight:'2rem'}}>
+            {isDarkMode ? <DarkModeIcon onClick={toggleTheme} /> : <LightModeIcon onClick={toggleTheme} />}
+          </div>
           {isAdmin?.admin == true ||
-          isInstructor?.instructor == true ||
-          isStudent?.student == true ? (
+            isInstructor?.instructor == true ||
+            isStudent?.student == true ? (
             <Link to={"/dashboard"}>
               <Button variant="contained" color="info">
                 Dashboard

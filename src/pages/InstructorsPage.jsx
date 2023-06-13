@@ -1,5 +1,5 @@
 // import firebase from "firebase/app";
-import { Box, Container } from "@mui/material";
+import { Container, Grid } from "@mui/material";
 import InstructorsCard from "../componants/InstructorsCard";
 import axios from "axios";
 import { useQuery } from "react-query";
@@ -16,13 +16,17 @@ const InstructorsPage = () => {
   });
 
   return (
-    <Box sx={{ margin: "2rem 0" }}>
-      <Container>
-        {data?.map((allData) => {
-          return <InstructorsCard key={allData._id} info={allData} />;
+    <Container>
+      <Grid container spacing={4} style={{ margin: "auto -1rem" }}>
+        {data?.slice(0, 6).map((allData) => {
+          return (
+            <Grid key={allData._id} item xs={12} md={4}>
+              <InstructorsCard info={allData} />
+            </Grid>
+          );
         })}
-      </Container>
-    </Box>
+      </Grid>
+    </Container>
   );
 };
 

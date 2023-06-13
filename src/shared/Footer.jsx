@@ -1,52 +1,52 @@
-import { Box, Container, Typography } from "@mui/material";
+import { Container, Typography, Grid } from "@mui/material";
 import CastForEducationIcon from "@mui/icons-material/CastForEducation";
 
-const Footer = () => {
+
+
+const contactInfoStyles = {
+  marginBottom: "1rem",
+};
+
+// eslint-disable-next-line react/prop-types
+const Footer = ({ isDarkMode }) => {
+  const footerStyles = {
+    backgroundColor: isDarkMode ? "#1e1e1e" : "#025ab9",
+    color: "#fff",
+    padding: "2rem",
+  };
+
   return (
-    <>
-      <Box
-        sx={{
-          width: "100%",
-          height: 100,
-          backgroundColor: "primary.dark",
-          display: { md: "flex" },
-        }}
-        alignItems="center"
-        // justifyContent={"space-between"}
-      >
-        <Container
-          sx={{
-            display: { md: "flex" },
-            alignItems: "center",
-            justifyContent: "space-between",
-            color: "white",
-          }}
-        >
-          <Box
-            sx={{ display: { xs: "none", md: "flex" }, alignItems: "center" }}
-          >
-            <CastForEducationIcon
-              sx={{
-                marginRight: "10px",
-                marginTop: "1.5rem",
-              }}
-            />
-            <Typography variant="h5" sx={{ marginTop: "1.5rem" }}>
+    <footer style={footerStyles}>
+      <Container maxWidth="lg">
+        <Grid container spacing={4} sx={{justifyContent:'space-between', marginLeft:'.10rem'}} >
+          {/* Add your logo or website name */}
+          <Grid item xs={12} md={6}>
+            <Typography variant="h6" component="div" display="flex" alignItems="center">
+              <CastForEducationIcon
+                sx={{ marginRight: "10px", display: { xs: "none", md: "flex" } }}
+              />
               SnapSchool
             </Typography>
-          </Box>
-
-          <Box
-            sx={{ marginTop: "1.5rem", display: { md: "flex" }, gap: "1rem" }}
-          >
-            <Typography variant="p">Home</Typography>
-            <Typography variant="p">Classes</Typography>
-            <Typography variant="p">Instructors</Typography>
-            <Typography variant="p">Contact us</Typography>
-          </Box>
-        </Container>
-      </Box>
-    </>
+          </Grid>
+          {/* Add your contact information */}
+          <Grid item xs={12} md={4}>
+            <Typography
+              variant="body2"
+              component="div"
+              style={contactInfoStyles}
+            >
+              Email: info@gmail.com<br />
+              Phone: (123) 456-7890<br />
+              Address: 1234 Main Street, City, Country
+            </Typography>
+          </Grid>
+        </Grid>
+        {/* Add copyright information */}
+        <Typography variant="body2" align="center">
+          &copy; {new Date().getFullYear()} SnapSchool. All rights reserved.
+        </Typography>
+      </Container>
+    </footer>
   );
 };
 
