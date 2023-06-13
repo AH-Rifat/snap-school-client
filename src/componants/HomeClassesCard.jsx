@@ -5,7 +5,7 @@ import axios from "axios";
 
 const HomeClassesCard = () => {
   const { data } = useQuery({
-    queryKey: "homeClasses",
+    queryKey: ["homeClasses"],
     queryFn: async () => {
       const res = await axios.get(
         `${import.meta.env.VITE_SERVER_URL}/allClasses`
@@ -20,7 +20,7 @@ const HomeClassesCard = () => {
         {data?.slice(0,6).map((data) => {
           return (
             <Grid key={data._id} item xs={12} md={4}>
-              <ClassesCard info={data} />;
+              <ClassesCard info={data} />
             </Grid>
           );
         })}
