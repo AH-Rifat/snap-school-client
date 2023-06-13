@@ -10,10 +10,10 @@ import {
   Typography,
 } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
-import axios from "axios";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
 // import FeedbackModal from "../../../componants/FeedbackModal";
 // feedback modal style
 const style = {
@@ -44,12 +44,13 @@ const ManageClasses = () => {
     reset,
     // formState: { errors },
   } = useForm();
+  const [axiosSecure] = useAxiosSecure()
 
   const onSubmit = (data) => {
     reset();
     handleClose();
-    axios
-      .post(`${import.meta.env.VITE_SERVER_URL}/admin/feedback`, data)
+    axiosSecure
+      .post(`/admin/feedback`, data)
       .then(() => {
         toast.success("Feedback Sent Successfuly");
       })
@@ -119,9 +120,7 @@ const ManageClasses = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(
-          `${import.meta.env.VITE_SERVER_URL}/allClasses`
-        );
+        const response = await axiosSecure(`/allClasses`);
         const rowsWithId = response.data.map((row, index) => ({
           ...row,
           id: index + 1,
@@ -133,20 +132,18 @@ const ManageClasses = () => {
     };
 
     fetchData();
-  }, [allData]);
+  }, [axiosSecure]);
 
   const handleSetApprove = (id) => {
-    const res = axios.patch(
-      `${
-        import.meta.env.VITE_SERVER_URL
-      }/classesStatus/${id}?status=${"approve"}`
+    const res = axiosSecure.patch(
+      `/classesStatus/${id}?status=${"approve"}`
     );
     return res.data;
   };
 
   const handleSetDeny = (id) => {
-    const res = axios.patch(
-      `${import.meta.env.VITE_SERVER_URL}/classesStatus/${id}?status=${"deny"}`
+    const res = axiosSecure.patch(
+      `/classesStatus/${id}?status=${"deny"}`
     );
     return res.data;
   };
@@ -176,6 +173,7 @@ const ManageClasses = () => {
               label="Type Here"
               rows={4}
               multiline
+              required
             />
             <input
               type="hidden"
@@ -210,7 +208,7 @@ const ManageClasses = () => {
               columns={columns}
               getRowId={(row) => row.id}
               pageSize={5}
-              // checkboxSelection
+            // checkboxSelection
             />
           </CardContent>
         </Card>

@@ -26,46 +26,50 @@ const MySelectedClasses = () => {
       <Container>
         <Grid container spacing={5}>
           <Grid item xs={8} md={4}>
-            {data?.map(({ _id, className, instructorName, price }) => {
-              return (
-                <Card key={_id} sx={{ maxWidth: 345 }}>
-                  <CardContent>
-                    <Typography
-                      style={{ fontWeight: "600" }}
-                      gutterBottom
-                      variant="h5"
-                      component="div"
-                    >
-                      {className}
-                    </Typography>
-                    <Typography
-                      sx={{ textAlign: "start" }}
-                      variant="p"
-                      component="div"
-                    >
-                      Instructor Name: {instructorName}
-                    </Typography>
-                    <Typography
-                      sx={{ textAlign: "start" }}
-                      variant="p"
-                      component="div"
-                    >
-                      Price: {price}
-                    </Typography>
-                  </CardContent>
-                  <CardActions
-                    sx={{ justifyContent: "space-between", marginX: "1rem" }}
-                  >
-                    <Button size="small" variant="contained" color="error">
-                      Delete
-                    </Button>
-                    <Button size="small" variant="contained" color="primary">
-                      Pay
-                    </Button>
-                  </CardActions>
-                </Card>
-              );
-            })}
+            {
+              data?.length == 0 ? <h1 style={{color:'red'}}>No Selected Data</h1> : (
+                data?.map(({ _id, className, instructorName, price }) => {
+                  return (
+                    <Card key={_id} sx={{ maxWidth: 345 }}>
+                      <CardContent>
+                        <Typography
+                          style={{ fontWeight: "600" }}
+                          gutterBottom
+                          variant="h5"
+                          component="div"
+                        >
+                          {className}
+                        </Typography>
+                        <Typography
+                          sx={{ textAlign: "start" }}
+                          variant="p"
+                          component="div"
+                        >
+                          Instructor Name: {instructorName}
+                        </Typography>
+                        <Typography
+                          sx={{ textAlign: "start" }}
+                          variant="p"
+                          component="div"
+                        >
+                          Price: {price}
+                        </Typography>
+                      </CardContent>
+                      <CardActions
+                        sx={{ justifyContent: "space-between", marginX: "1rem" }}
+                      >
+                        <Button size="small" variant="contained" color="error">
+                          Delete
+                        </Button>
+                        <Button size="small" variant="contained" color="primary">
+                          Pay
+                        </Button>
+                      </CardActions>
+                    </Card>
+                  );
+                })
+              )
+            }
           </Grid>
         </Grid>
       </Container>

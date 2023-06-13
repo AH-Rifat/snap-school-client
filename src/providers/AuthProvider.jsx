@@ -10,6 +10,7 @@ import {
 } from "firebase/auth";
 import { createContext, useEffect, useState } from "react";
 import app from "../firebase/firebase.config";
+import axios from "axios";
 
 export const AuthContext = createContext(null);
 const auth = getAuth(app);
@@ -26,7 +27,6 @@ const AuthProvider = ({ children }) => {
   };
 
   const signIn = (email, password) => {
-    console.log(email, password);
     setLoading(true);
     return signInWithEmailAndPassword(auth, email, password);
   };
@@ -38,11 +38,13 @@ const AuthProvider = ({ children }) => {
 
   const updateUserProfile = (name, photo) => {
     return updateProfile(auth.currentUser, {
-        displayName: name, photoURL: photo
+      displayName: name,
+      photoURL: photo,
     });
-}
+  };
 
   const logOut = () => {
+    localStorage.removeItem("access-token");
     setLoading(true);
     return signOut(auth);
   };
@@ -51,6 +53,17 @@ const AuthProvider = ({ children }) => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
       setLoading(false);
+
+      if (currentUser?.email) {
+        axios.post(`${import.meta.env.VITE_SERVER_URL}/jwt`, {
+          email: currentUser?.email,
+        })
+          .then((data) => {
+            localStorage.setItem("access-token", data?.data.token);
+          });
+      } else {
+        localStorage.removeItem('"access-token"')
+      }
     });
     return () => {
       return unsubscribe();

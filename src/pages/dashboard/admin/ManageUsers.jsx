@@ -12,18 +12,20 @@ import {
 } from "@mui/material";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
 
 const ManageUsers = () => {
   const [allUsers, setAllUsers] = useState([]);
+  const [axiosSecure] = useAxiosSecure()
 
   useEffect(() => {
-    axios
-      .get(`${import.meta.env.VITE_SERVER_URL}/allUsers`)
+    axiosSecure
+      .get(`/allUsers`)
       .then((res) => {
         setAllUsers(res.data);
       })
       .catch((error) => console.log(error));
-  }, [allUsers]);
+  }, []);
 
   const handleMakeAdmin = (email) => {
     axios

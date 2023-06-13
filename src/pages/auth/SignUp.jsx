@@ -13,8 +13,8 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useContext, useRef } from "react";
 import { AuthContext } from "../../providers/AuthProvider";
-import axios from "axios";
 import { toast } from "react-toastify";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 const SignUp = () => {
   const {
@@ -25,6 +25,7 @@ const SignUp = () => {
     formState: { errors },
   } = useForm();
   const { googleSignIn, createUser, updateUserProfile } = useContext(AuthContext);
+  const [axiosSecure] = useAxiosSecure()
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -33,13 +34,12 @@ const SignUp = () => {
     reset();
     createUser(data.email, data.password)
       .then(() => {
-        axios
-          .post(`${import.meta.env.VITE_SERVER_URL}/user`, {
-            name: data.name,
-            email: data.email,
-            photoUrl: data.photoUrl,
-            role: "student",
-          })
+        axiosSecure.post(`/user`, {
+          name: data.name,
+          email: data.email,
+          photoUrl: data.photoUrl,
+          role: "student",
+        })
           .then(() => {
             updateUserProfile(data.name, data.photoUrl)
             toast.success('Registration Successful')
