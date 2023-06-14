@@ -13,7 +13,7 @@ const DashboardLayout = () => {
       <CssBaseline />
       <Box sx={{ display: "flex" }}>
         <Sidebar />
-        <div style={{width:'100%', textAlign:'center'}}>
+        <div style={{width:'100%', textAlign:'center', backgroundColor:'#dadbe1'}}>
           {isStudent?.student == true ? (
             <h1
               key={1}
