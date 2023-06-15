@@ -3,8 +3,10 @@ import { DataGrid } from "@mui/x-data-grid";
 import axios from "axios";
 import { useState } from "react";
 import { useQuery } from "react-query";
+import useAuth from "../../../hooks/useAuth";
 
 const MyClasses = () => {
+  const { user } = useAuth()
   const [allData, setAllData] = useState([]);
 
   const columns = [
@@ -28,7 +30,7 @@ const MyClasses = () => {
   ];
 
   const { refetch } = useQuery("myClasses", async () => {
-    const response = await axios.get(`${import.meta.env.VITE_SERVER_URL}/allClasses`);
+    const response = await axios.get(`${import.meta.env.VITE_SERVER_URL}/showClasses/${user?.email}`);
     const rowsWithId = response.data.map((row, index) => ({
       ...row,
       id: index + 1,

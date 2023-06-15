@@ -25,7 +25,7 @@ const ManageUsers = () => {
         setAllUsers(res.data);
       })
       .catch((error) => console.log(error));
-  }, []);
+  }, [axiosSecure]);
 
   const handleMakeAdmin = (email) => {
     axios

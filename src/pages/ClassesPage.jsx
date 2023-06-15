@@ -1,4 +1,4 @@
-import { Box, Container } from "@mui/material";
+import { Container, Grid } from "@mui/material";
 import ClassesCard from "../componants/ClassesCard";
 import { useQuery } from "react-query";
 import axios from "axios";
@@ -15,13 +15,17 @@ const ClassesPage = () => {
   });
 
   return (
-    <Box sx={{ margin: "2rem 0" }}>
-      <Container>
+    <Container>
+      <Grid container spacing={4} style={{ margin: "auto 0rem" }}>
         {data?.map((allData) => {
-          return <ClassesCard key={allData._id} info={allData} />;
+          return (
+            <Grid key={allData._id} item xs={12} md={4}>
+              <ClassesCard info={allData} />
+            </Grid>
+          )
         })}
-      </Container>
-    </Box>
+      </Grid>
+    </Container>
   );
 };
 

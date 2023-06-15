@@ -18,9 +18,9 @@ const PaymentPage = () => {
     useEffect(() => {
         axios.get(`${import.meta.env.VITE_SERVER_URL}/classInfo/${classId}`)
             .then((res) => {
-                setAvailableSeat(res.data[0].availableSeats)
-                setenrolledStudent(res.data[0].totalEnrolled)
-                setClassName(res.data[0].className)
+                setAvailableSeat(res?.data[0]?.availableSeats)
+                setenrolledStudent(res?.data[0]?.totalEnrolled)
+                setClassName(res?.data[0]?.className)
             })
     }, [classId])
 

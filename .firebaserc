@@ -1,1 +1,5 @@
-{}
+{
+  "projects": {
+    "default": "snapschool-31b3a"
+  }
+}
