@@ -21,6 +21,8 @@ const pages = [
   { label: "Home", path: "/" },
   { label: "Instructors", path: "/instructors" },
   { label: "Classes", path: "/classesPage" },
+  { label: "Course Benefits", path: "#" },
+  { label: "Contact Us", path: "#" },
 ];
 
 const Header = ({ toggleTheme, isDarkMode }) => {

@@ -6,6 +6,7 @@ import HomeClassesCard from "../componants/HomeClassesCard";
 import TestimonialSection from "../componants/TestimonialSection";
 import ContactSection from "../componants/ContactSection";
 import BenefitsSection from "../componants/BenefitsSection";
+import AboutSection from "../componants/AboutSection";
 
 const Home = () => {
   return (
@@ -30,6 +31,10 @@ const Home = () => {
       {/* Popular Classes */}
       <SectionTitle title={"FQA"} />
       <SimpleAccordion />
+
+      {/* about-us section */}
+      <SectionTitle title={"About Us"} />
+      <AboutSection />
 
       {/* contact-us section */}
       <SectionTitle title={"Contact Us"} />
